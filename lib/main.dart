@@ -28,7 +28,16 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   void _calculate() {
     final weight = _weghtController.text;
     final age = _ageController.text;
-    print('Вес: $weight кг, Возраст: $age недель');
+    // print('Вес: $weight кг, Возраст: $age недель');
+    //делаем POST запрос
+    http.post(
+      Uri.parse('https://webhook.site/7b1f253c-cd6e-4f6f-8629-a3816d43562b'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'weight_kg': weight,
+        'age_w': age,
+      }),
+    );
   }
 
   @override
@@ -53,7 +62,6 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
               controller: _ageController,
               decoration: const InputDecoration(
                 labelText: "Возраст",
-                hintText: "Введите возраст",
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
