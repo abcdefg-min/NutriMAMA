@@ -31,13 +31,15 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
     // print('Вес: $weight кг, Возраст: $age недель');
     //делаем POST запрос
     http.post(
-      Uri.parse('https://webhook.site/7b1f253c-cd6e-4f6f-8629-a3816d43562b'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'weight_kg': weight,
-        'age_w': age,
-      }),
-    );
+       Uri.parse('https://webhook.site/7b1f253c-cd6e-4f6f-8629-a3816d43562b'),
+       headers: {'Content-Type': 'application/json'},
+       body: jsonEncode({
+         'weight_kg': weight,
+         'age_w': age,
+       }),
+    ).then((response) {
+      print('Статус ${response.statusCode}');
+    });
   }
 
   @override
