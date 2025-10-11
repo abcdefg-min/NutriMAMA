@@ -19,6 +19,8 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   final TextEditingController _weghtController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
 
+  bool _showTable = false;
+
   @override
   void dispose() {
     _weghtController.dispose();
@@ -39,6 +41,11 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
        }),
     ).then((response) {
       print('Статус ${response.statusCode}');
+    }); 
+
+    //табличка
+    setState(() {
+      _showTable = true;
     });
   }
 
@@ -83,6 +90,27 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                 child: const Text("Рассчитать"),
               ),
             ),
+            //появление таблички, только если _showTable == true
+            if (_showTable)
+            Expanded(child: DataTable(columns: const [
+              DataColumn(label: Text('Питательное вещество')),
+              DataColumn(label: Text('Количество (мг/сут)')),
+            ],
+            rows: const [
+              DataRow(cells: [
+                DataCell(Text('Белок')),
+                DataCell(Text('12')),
+              ]),
+              DataRow(cells: [
+                DataCell(Text('Жиры')),
+                DataCell(Text('21')),
+              ]),
+              DataRow(cells: [
+                DataCell(Text('Углеводы')),
+                DataCell(Text('100')),
+              ]),
+            ],
+            ))
           ],
         ),
       )
