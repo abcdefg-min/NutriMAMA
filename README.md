@@ -1,6 +1,6 @@
 # flutter_nutrimama
 
-A new Flutter project.
+Разработка мобильного приложения расчета суточного рациона питания ребенка первого года жизни.
 
 ## Getting Started
 
