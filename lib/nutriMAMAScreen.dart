@@ -25,6 +25,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   }
 
   void _calculate() {
+    print('Функция вызвана');
     final form = _formKey.currentState;
     if (form == null || !form.validate()) {
       print('Форам не валидна');
@@ -76,76 +77,79 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
               fit: BoxFit.fitWidth,
             ),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              TextFormField(
-                controller: _weghtController,
-                decoration: const InputDecoration(
-                  labelText: "Вес ребёнка в кг",
-                  border: OutlineInputBorder(),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TextFormField(
+                  controller: _weghtController,
+                  decoration: const InputDecoration(
+                    labelText: "Вес ребёнка в кг",
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Пожалуйста введите вес ребёнка';
+                    }
+                    final trimmed = value.trim();
+                    final num = int.tryParse(trimmed);
+                    if (num == null || num <= 0) {
+                      return 'Введите корректный возраст в неделях';
+                    }
+                  },
                 ),
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'Пожалуйста введите вес ребёнка';
-                  }
-                  final trimmed = value.trim();
-                  if (double.tryParse(trimmed) == null) {
-                    return 'Вес должен быть больше 0';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _ageController,
-                decoration: const InputDecoration(
-                  labelText: "Возраст",
-                  border: OutlineInputBorder(),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _ageController,
+                  decoration: const InputDecoration(
+                    labelText: "Возраст",
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Пожалуйста введите возраст в неделях';
+                    }
+                    final trimmed = value.trim();
+                    final num = int.tryParse(trimmed);
+                    if (num == null || num <= 0) {
+                      return 'Введите корректный возраст';
+                    }
+                    return null;
+                  },
+                  //maxLength: 50,
                 ),
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'Пожалуйста введите возраст в неделях';
-                  }
-                  final trimmed = value.trim();
-                  final num = int.tryParse(trimmed);
-                  if (num == null || num <= 0) {
-                    return 'Введите корректный возраст (целое положительное число)';
-                  }
-                  return null;
-                },
-                //maxLength: 50,
-              ),
-              const SizedBox(height: 4),
-              const Padding(
-                padding: EdgeInsets.only(left: 12.0),
-                child: Text(
-                  "в неделях",
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
+                const SizedBox(height: 4),
+                const Padding(
+                  padding: EdgeInsets.only(left: 12.0),
+                  child: Text(
+                    "в неделях",
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              Center(
-                child: ElevatedButton(
-                  onPressed: _calculate,
-                  child: const Text("Рассчитать"),
-                  style: ElevatedButton.styleFrom(
-                    textStyle: TextStyle(fontSize: 20),
-                    backgroundColor: const Color.fromARGB(255, 184, 137, 189),
-                    foregroundColor: const Color.fromARGB(255, 255, 255, 255),
-                    padding: EdgeInsets.all(15),
-                    elevation: 5,
-                    minimumSize: Size(200, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(10),
+                const SizedBox(height: 24),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: _calculate,
+                    child: const Text("Рассчитать"),
+                    style: ElevatedButton.styleFrom(
+                      textStyle: TextStyle(fontSize: 20),
+                      backgroundColor: const Color.fromARGB(255, 184, 137, 189),
+                      foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+                      padding: EdgeInsets.all(15),
+                      elevation: 5,
+                      minimumSize: Size(200, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(10),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
