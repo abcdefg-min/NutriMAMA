@@ -11,6 +11,7 @@ class NutriMAMAScreen extends StatefulWidget {
 }
 
 class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _weghtController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
 
@@ -22,8 +23,14 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
     _ageController.dispose();
     super.dispose();
   }
-  
+
   void _calculate() {
+    final form = _formKey.currentState;
+    if (form == null || !form.validate()) {
+      print('Форам не валидна');
+      return;
+    }
+
     final weight = _weghtController.text;
     final age = _ageController.text;
     // print('Вес: $weight кг, Возраст: $age недель');
@@ -56,10 +63,8 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(title: const Text("NutriMAMA")),
       body: Center(
-        
         child: Container(
           width: 350,
           height: 350,
@@ -68,29 +73,50 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
             image: DecorationImage(
               image: AssetImage("assets/images/nutriMAMA.png"),
               opacity: 0.05,
-              fit: BoxFit.fitWidth
-              ),
+              fit: BoxFit.fitWidth,
+            ),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextField(
+            children: <Widget>[
+              TextFormField(
                 controller: _weghtController,
                 decoration: const InputDecoration(
                   labelText: "Вес ребёнка в кг",
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Пожалуйста введите вес ребёнка';
+                  }
+                  final trimmed = value.trim();
+                  if (double.tryParse(trimmed) == null) {
+                    return 'Вес должен быть больше 0';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
-              TextField(
+              TextFormField(
                 controller: _ageController,
                 decoration: const InputDecoration(
                   labelText: "Возраст",
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Пожалуйста введите возраст в неделях';
+                  }
+                  final trimmed = value.trim();
+                  final num = int.tryParse(trimmed);
+                  if (num == null || num <= 0) {
+                    return 'Введите корректный возраст (целое положительное число)';
+                  }
+                  return null;
+                },
                 //maxLength: 50,
               ),
               const SizedBox(height: 4),
@@ -103,9 +129,8 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
               ),
               const SizedBox(height: 24),
               Center(
-                
                 child: ElevatedButton(
-                   onPressed: _calculate,
+                  onPressed: _calculate,
                   child: const Text("Рассчитать"),
                   style: ElevatedButton.styleFrom(
                     textStyle: TextStyle(fontSize: 20),
@@ -113,14 +138,13 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                     foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                     padding: EdgeInsets.all(15),
                     elevation: 5,
-                    minimumSize:Size(200, 50),
+                    minimumSize: Size(200, 50),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(10)
-                    )
+                      borderRadius: BorderRadiusGeometry.circular(10),
+                    ),
                   ),
                 ),
               ),
-
             ],
           ),
         ),
