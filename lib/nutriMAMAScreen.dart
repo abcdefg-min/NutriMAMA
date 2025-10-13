@@ -23,7 +23,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
     _ageController.dispose();
     super.dispose();
   }
-
+  
   void _calculate() {
     print('Функция вызвана');
     final form = _formKey.currentState;

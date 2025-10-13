@@ -40,7 +40,7 @@ class TableScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: DataTable(
                   columns: const [
-                    DataColumn(label: Text('Питательное вещество')),
+                    DataColumn(label: Text('Питательные вещества')),
                     DataColumn(label: Text('Количество (г/сут)')),
                   ],
                   rows: nutriens.entries.map((entry) {
