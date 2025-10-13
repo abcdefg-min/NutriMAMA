@@ -22,7 +22,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
     _ageController.dispose();
     super.dispose();
   }
-
+  
   void _calculate() {
     final weight = _weghtController.text;
     final age = _ageController.text;
@@ -56,10 +56,21 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(title: const Text("NutriMAMA")),
       body: Center(
-        child: Padding(
+        
+        child: Container(
+          width: 350,
+          height: 350,
           padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/nutriMAMA.png"),
+              opacity: 0.05,
+              fit: BoxFit.fitWidth
+              ),
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,6 +91,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
+                //maxLength: 50,
               ),
               const SizedBox(height: 4),
               const Padding(
@@ -91,11 +103,24 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
               ),
               const SizedBox(height: 24),
               Center(
+                
                 child: ElevatedButton(
-                  onPressed: _calculate,
+                   onPressed: _calculate,
                   child: const Text("Рассчитать"),
+                  style: ElevatedButton.styleFrom(
+                    textStyle: TextStyle(fontSize: 20),
+                    backgroundColor: const Color.fromARGB(255, 184, 137, 189),
+                    foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    padding: EdgeInsets.all(15),
+                    elevation: 5,
+                    minimumSize:Size(200, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(10)
+                    )
+                  ),
                 ),
               ),
+
             ],
           ),
         ),
