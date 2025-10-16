@@ -15,6 +15,9 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   final TextEditingController _weghtController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
 
+  final List<String> _dropDown = ['Грудное вскармливание','Искуственное вскармливание'];
+  String _drop = 'Грудное вскармливание';
+
   // bool _showTable = false;
 
   @override
@@ -60,6 +63,8 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
       ),
     );
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +135,32 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ),
+                const SizedBox(height: 15),
+                DropdownButtonFormField(
+                  value: _drop,
+                  items: _dropDown.map((String drop) {
+                    return DropdownMenuItem<String>(
+                      value: drop,
+                      child: Text(drop),
+                      );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _drop = newValue!;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Тип вскармливания',
+                    border: OutlineInputBorder()
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Выберите тип вскармливания';
+                    }
+                    return null;
+                  },
+                ),
+
                 const SizedBox(height: 24),
                 Center(
                   child: ElevatedButton(
