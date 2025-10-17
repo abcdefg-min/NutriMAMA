@@ -35,8 +35,8 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
       return;
     }
 
-    final weight = _weghtController.text;
-    final age = _ageController.text;
+    double? weight = double.tryParse(_weghtController.text);
+    int? age = int.tryParse(_ageController.text);
     // print('Вес: $weight кг, Возраст: $age недель');
     //делаем POST запрос
     http
@@ -55,16 +55,19 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
     // setState(() {
     //   _showTable = true;
     // });
-
-    Navigator.push(
+    if (weight != null && age != null) {
+      Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => TableScreen(weight: weight, age: age),
       ),
     );
+    }
+    else{
+      return;
+    }
   }
 
-  
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +76,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
       body: Center(
         child: Container(
           width: 350,
-          height: 350,
+          height: 450,
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -102,7 +105,10 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                     final trimmed = value.trim();
                     final num = int.tryParse(trimmed);
                     if (num == null || num <= 0) {
-                      return 'Введите корректный возраст в неделях';
+                      return 'Введите корректный вес ребёнка';
+                    }
+                    if (num > 5000) {
+                      return 'Введите корректный возраст';
                     }
                   },
                 ),
@@ -123,7 +129,9 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                     if (num == null || num <= 0) {
                       return 'Введите корректный возраст';
                     }
-                    return null;
+                    if (num > 24) {
+                      return 'Введите возраст до года';
+                    }
                   },
                   //maxLength: 50,
                 ),

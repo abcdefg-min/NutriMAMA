@@ -1,13 +1,33 @@
 import "package:flutter/material.dart";
 
 class TableScreen extends StatelessWidget {
-  final weight;
-  final age;
+  final double weight;
+  final int age;
 
   const TableScreen({super.key, required this.weight, required this.age});
 
-  Map<String, double> _calculateTable() {
-    return {'Белки': 20, 'Жиры': 20, 'Углеводы': 50};
+  List<Map<String, dynamic>> _calculateTable() {
+    final int month = age ~/ 4;
+    
+    final List<Map<String, dynamic>> allInTable = [
+      {'meal': '1', 'product': 'Грудное молоко', 'time': '6:00', 'volume': 200.0},
+      {'meal': '2', 'product': 'Грудное молоко', 'time': '9:00', 'volume': 180.0},
+      {'meal': '3', 'product': 'Грудное молоко', 'time': '12:00', 'volume': 220.0},
+      {'meal': '4', 'product': 'Грудное молоко', 'time': '15:00', 'volume': 190.0},
+      {'meal': '5', 'product': 'Грудное молоко', 'time': '18:00', 'volume': 180.0},
+      {'meal': '6', 'product': 'Грудное молоко', 'time': '21:00', 'volume': 210.0},
+      {'meal': '7', 'product': 'Грудное молоко', 'time': '24:00', 'volume': 160.0},
+    ];
+
+    if(month < 2) {
+      return allInTable;
+    }
+    else if(month >= 2 && month < 4) {
+      return allInTable.take(6).toList();
+    }
+    else {
+      return allInTable.take(5).toList();
+    }
   }
 
   @override
@@ -40,14 +60,18 @@ class TableScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: DataTable(
                   columns: const [
-                    DataColumn(label: Text('Питательные вещества')),
-                    DataColumn(label: Text('Количество (г/сут)')),
+                    DataColumn(label: Text('Приём')),
+                    DataColumn(label: Text('Продукт питания')),
+                    DataColumn(label: Text('Время')),
+                    DataColumn(label: Text('Объем (мл)')),
                   ],
-                  rows: nutriens.entries.map((entry) {
+                  rows: nutriens.map((item) {
                     return DataRow(
                       cells: [
-                        DataCell(Text(entry.key)),
-                        DataCell(Text(entry.value.toStringAsFixed(1))),
+                        DataCell(Text(item['meal'].toString())),
+                        DataCell(Text(item['product'].toString())),
+                        DataCell(Text(item['time'].toString())),
+                        DataCell(Text(item['volume'].toString())),
                       ],
                     );
                   }).toList(),
