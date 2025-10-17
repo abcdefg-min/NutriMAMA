@@ -51,7 +51,7 @@ class TableScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Вес: $weight кг, Возраст: $age недель',
+                'Вес: $weight кг, Возраст: $age недель (${age~/4} мес.)',
                 style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 24),
