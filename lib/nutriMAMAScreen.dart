@@ -30,6 +30,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   void _calculate() {
     print('Функция вызвана');
     final form = _formKey.currentState;
+    
     if (form == null || !form.validate()) {
       print('Форам не валидна');
       return;
@@ -110,6 +111,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                     if (num > 5000) {
                       return 'Введите корректный возраст';
                     }
+                    return null;
                   },
                 ),
                 const SizedBox(height: 16),
@@ -132,6 +134,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                     if (num > 24) {
                       return 'Введите возраст до года';
                     }
+                    return null;
                   },
                   //maxLength: 50,
                 ),
