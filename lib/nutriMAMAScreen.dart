@@ -37,7 +37,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
     }
 
     double? weight = double.tryParse(_weghtController.text);
-    int? age = int.tryParse(_ageController.text);
+    int? age = int.tryParse(_ageController.text); 
     // print('Вес: $weight кг, Возраст: $age недель');
     //делаем POST запрос
     http
