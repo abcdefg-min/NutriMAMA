@@ -131,7 +131,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                     if (num == null || num <= 0) {
                       return 'Введите корректный возраст';
                     }
-                    if (num > 24) {
+                    if (num > 52) {
                       return 'Введите возраст до года';
                     }
                     return null;
