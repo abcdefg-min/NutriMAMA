@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 240, 235, 241),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Center(
         //child: Image.asset("assets/images/nutriMAMA.png")
         child: LoadingAnimationWidget.threeRotatingDots(
