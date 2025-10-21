@@ -10,96 +10,116 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool passwordVisible = false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void _loginSc() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => NutriMAMAScreen()),
-    );
+    if (_formKey.currentState!.validate()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => NutriMAMAScreen()),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            //поле для ввода логина
-            SizedBox(height: 300.0),
-            Container(
-              height: 60,
-              padding: EdgeInsets.only(left: 20.0),
-              margin: EdgeInsets.only(right: 40.0, left: 40.0),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(47, 119, 119, 119),
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: Center(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Введите логин',
-                    labelText: 'Логин',
-                  ),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              //поле для ввода логина
+              SizedBox(height: 300.0),
+              Container(
+                height: 60,
+                padding: EdgeInsets.only(left: 20.0),
+                margin: EdgeInsets.only(right: 40.0, left: 20.0),
+                decoration: BoxDecoration(
+                  //   color: const Color.fromARGB(47, 119, 119, 119),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
-              ),
-            ),
-
-            //поле для ввода пароля
-            SizedBox(height: 30.0),
-            Container(
-              height: 60,
-              padding: EdgeInsets.only(left: 20.0),
-              margin: EdgeInsets.only(right: 40.0, left: 40.0),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(47, 119, 119, 119),
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: Center(
-                child: TextField(
-                  obscureText: passwordVisible,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Введите пароль',
-                    labelText: "Пароль",
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                      passwordVisible ? 
-                      Icons.visibility : 
-                      Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        passwordVisible = !passwordVisible;
-                      });
-                    },
+                child: Center(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      //border: InputBorder.none,
+                      labelText: 'Логин',
+                      border: OutlineInputBorder(),
                     ),
-                    
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Пожалуйста введите логин";
+                      }
+                      return null;
+                    },
                   ),
                 ),
               ),
-            ),
 
-            //кнопка "Регистрация"
-            SizedBox(height: 60.0),
-            Center(
-              child: ElevatedButton(
-                onPressed: _loginSc,
-                child: const Text("Регистрация"),
-                style: ElevatedButton.styleFrom(
-                  textStyle: TextStyle(fontSize: 20),
-                  backgroundColor: const Color.fromARGB(255, 184, 137, 189),
-                  foregroundColor: const Color.fromARGB(255, 255, 255, 255),
-                  padding: EdgeInsets.all(15),
-                  elevation: 5,
-                  minimumSize: Size(200, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(20),
+              //поле для ввода пароля
+              SizedBox(height: 30.0),
+              Container(
+                height: 60,
+                padding: EdgeInsets.only(left: 20.0),
+                margin: EdgeInsets.only(right: 40.0, left: 20.0),
+                // decoration: BoxDecoration(
+                //   //color: const Color.fromARGB(47, 119, 119, 119),
+                //   borderRadius: BorderRadius.circular(20.0),
+                // ),
+                child: Center(
+                  child: TextFormField(
+                    obscureText: passwordVisible,
+                    decoration: InputDecoration(
+                      //border: InputBorder.none,
+                      labelText: "Пароль",
+                      border: OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            passwordVisible = !passwordVisible;
+                          });
+                        },
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Пожалуйста введите пароль";
+                      }
+                      return null;
+                    },
                   ),
                 ),
               ),
-            ),
-          ],
+
+              //кнопка "Регистрация"
+              SizedBox(height: 60.0),
+              Center(
+                child: ElevatedButton(
+                  onPressed: _loginSc,
+                  child: const Text("Регистрация"),
+                  style: ElevatedButton.styleFrom(
+                    textStyle: TextStyle(fontSize: 20),
+                    backgroundColor: const Color.fromARGB(255, 184, 137, 189),
+                    foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    padding: EdgeInsets.all(15),
+                    elevation: 5,
+                    minimumSize: Size(200, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(20),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
 
         // child: Container(
