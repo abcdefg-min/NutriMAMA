@@ -95,7 +95,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                 TextFormField(
                   controller: _weghtController,
                   decoration: const InputDecoration(
-                    labelText: "Вес ребёнка в кг",
+                    labelText: "Вес ребёнка в граммах",
                     border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.number,
@@ -108,8 +108,8 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                     if (num == null || num <= 0) {
                       return 'Введите корректный вес ребёнка';
                     }
-                    if (num > 5000) {
-                      return 'Введите корректный возраст';
+                    if (num > 4000) {
+                      return 'Введите корректный вес ребёнка';
                     }
                     return null;
                   },
