@@ -1,6 +1,6 @@
 import "dart:async";
+import "package:flutter_nutrimama/onboard.dart";
 import "package:loading_animation_widget/loading_animation_widget.dart";
-import 'nutriMAMAScreen.dart';
 import "package:flutter/material.dart";
 
 
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(Duration(seconds: 3), () {
       Navigator.push(
         context, 
-        MaterialPageRoute(builder: (context) => const NutriMAMAScreen()));
+        MaterialPageRoute(builder: (context) => const Onboardind()));
     });
   }
 

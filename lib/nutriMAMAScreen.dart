@@ -73,7 +73,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("NutriMAMA")),
+      //appBar: AppBar(title: const Text("NutriMAMA")),
       body: Center(
         child: Container(
           width: 350,
