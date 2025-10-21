@@ -32,7 +32,8 @@ class _OnboardindState extends State<Onboardind> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(child: Column(  
+      body: Container(
+        child: Column(  
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
         SizedBox(height: 30.0),
