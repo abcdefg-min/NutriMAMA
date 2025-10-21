@@ -25,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            //поле для ввода логина
             SizedBox(height: 300.0),
             Container(
               height: 60,
@@ -44,6 +45,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
+
+            //поле для ввода пароля
             SizedBox(height: 30.0),
             Container(
               height: 60,
@@ -76,6 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
+
+            //кнопка "Регистрация"
             SizedBox(height: 60.0),
             Center(
               child: ElevatedButton(
