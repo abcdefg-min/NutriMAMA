@@ -13,7 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  void _loginSc() {
+  void _screenNutri() {
     if (_formKey.currentState!.validate()) {
       Navigator.push(
         context,
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 60.0),
               Center(
                 child: ElevatedButton(
-                  onPressed: _loginSc,
+                  onPressed: _screenNutri,
                   child: const Text("Регистрация"),
                   style: ElevatedButton.styleFrom(
                     textStyle: TextStyle(fontSize: 20),

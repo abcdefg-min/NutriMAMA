@@ -66,7 +66,7 @@ class TableScreen extends StatelessWidget {
       appBar: AppBar(title: const Text("Результат")),
       body: Center(
         child: Container(
-          width: 350,
+          width: 450,
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             image: DecorationImage(
