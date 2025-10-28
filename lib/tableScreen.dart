@@ -61,9 +61,9 @@ class TableScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nutriens = _calculateTable();
-
     return Scaffold(
-      appBar: AppBar(title: const Text("Результат")),
+      backgroundColor: Color.fromARGB(255, 246, 238, 230),
+      //appBar: AppBar(title: const Text("Результат")),
       body: Center(
         child: Container(
           width: 450,

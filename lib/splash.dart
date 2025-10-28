@@ -1,5 +1,4 @@
 import "dart:async";
-import "package:flutter_nutrimama/onboard.dart";
 import "package:loading_animation_widget/loading_animation_widget.dart";
 import "package:flutter/material.dart";
 import 'nutriMAMAScreen.dart';
@@ -26,11 +25,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 246, 238, 230),
       body: Center(
         //child: Image.asset("assets/images/nutriMAMA.png")
         child: LoadingAnimationWidget.threeRotatingDots(
-          color: const Color.fromARGB(255, 207, 161, 200),
+          color: const Color.fromARGB(255, 246, 238, 230),
           size: 100
           ),
       ),

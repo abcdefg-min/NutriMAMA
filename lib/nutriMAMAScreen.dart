@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'tableScreen.dart';
@@ -28,11 +28,11 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   }
   
   void _calculate() {
-    print('Функция вызвана');
+    //print('Функция вызвана');
     final form = _formKey.currentState;
     
     if (form == null || !form.validate()) {
-      print('Форам не валидна');
+      //print('Форам не валидна');
       return;
     }
 
@@ -49,7 +49,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
           body: jsonEncode({'weight_kg': weight, 'age_w': age}),
         )
         .then((response) {
-          print('Статус ${response.statusCode}');
+          //print('Статус ${response.statusCode}');
         });
 
     //табличка
@@ -73,6 +73,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 246, 238, 230),
       //appBar: AppBar(title: const Text("NutriMAMA")),
       body: Center(
         child: Container(
