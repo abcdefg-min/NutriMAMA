@@ -79,119 +79,220 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
       body: Container(
         child: Stack(
           children: [
-            //форму позже доавбить
-            Padding(
-              padding: EdgeInsetsGeometry.only(top: 250, left: 35, right: 35, bottom: 250),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Form(
-                  child: Column(
-                    children: [
-                      //форма для ввода имени
-                      Padding(
-                        padding: EdgeInsetsGeometry.only(
-                          top: 10,
-                          left: 15,
-                          right: 15,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Имя ребенка', style: TextStyle(fontSize: 18)),
-                            Padding(padding: EdgeInsetsGeometry.all(5)),
-                            TextFormField(
-                              decoration: const InputDecoration(
-                                labelText: "Имя",
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(18)),
-                                  borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 163, 163, 163),
-                                    width: 2,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+            Positioned.fill(
+              top: 220,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                  ),
 
-                      //форма для ввода веса в граммах
-                      Padding(
-                        padding: EdgeInsetsGeometry.only(
-                          top: 10,
-                          left: 15,
-                          right: 15,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Возраст (в неделях)',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            Padding(padding: EdgeInsetsGeometry.all(5)),
-                            TextFormField(
-                              decoration: const InputDecoration(
-                                labelText: "0-52 недели",
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(18)),
-                                  borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 163, 163, 163),
-                                    width: 2,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //форма для ввода имени
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Информация о ребёнке',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 21,
+                                  color: const Color.fromARGB(
+                                    255,
+                                    183,
+                                    141,
+                                    158,
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: 16),
+                              Text(
+                                'Имя ребенка (необязательно)',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  color: Color.fromARGB(255, 80, 37, 22),
+                                ),
+                              ),
+                              Padding(padding: EdgeInsetsGeometry.all(5)),
+                              TextFormField(
+                                decoration: const InputDecoration(
+                                  labelText: "Имя",
+                                  labelStyle: TextStyle(
+                                    color: Color.fromARGB(255, 138, 138, 138),
+                                    fontSize: 18,
+                                  ),
+                                  filled: true,
+                                  fillColor: Color.fromARGB(255, 235, 235, 235),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 163, 163, 163),
+                                      width: 2,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
 
-                      //форма для веса ребенка в граммах
-                      Padding(
-                        padding: EdgeInsetsGeometry.only(
-                          top: 10,
-                          left: 15,
-                          right: 15,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Вес ребенка в граммах',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            TextFormField(
-                              decoration: const InputDecoration(
-                                labelText: "Например: 3200",
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(18)),
-                                  borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 163, 163, 163),
-                                    width: 2,
+                        //форма для ввода веса в граммах
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Возраст (в неделях)',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  color: Color.fromARGB(255, 80, 37, 22),
+                                ),
+                              ),
+                              Padding(padding: EdgeInsetsGeometry.all(5)),
+                              TextFormField(
+                                decoration: const InputDecoration(
+                                  labelText: "0-52 недели",
+                                  labelStyle: TextStyle(
+                                    color: Color.fromARGB(255, 138, 138, 138),
+                                    fontSize: 18,
+                                  ),
+                                  filled: true,
+                                  fillColor: Color.fromARGB(255, 235, 235, 235),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 163, 163, 163),
+                                      width: 2,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+
+                        //форма для веса ребенка в граммах
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Вес ребенка в граммах',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  color: Color.fromARGB(255, 80, 37, 22),
+                                ),
+                              ),
+                              TextFormField(
+                                decoration: const InputDecoration(
+                                  labelText: "Например: 3200",
+                                  labelStyle: TextStyle(
+                                    color: Color.fromARGB(255, 138, 138, 138),
+                                    fontSize: 18,
+                                  ),
+                                  filled: true,
+                                  fillColor: Color.fromARGB(255, 235, 235, 235),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 163, 163, 163),
+                                      width: 2,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        //кнопка рассчитать
+                        Padding(
+                          padding: EdgeInsetsGeometry.only(
+                            top: 25,
+                            left: 5,
+                            right: 5,
+                          ),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: _calculate,
+                              child: const Text("Рассчитать план питания"),
+                              style: ElevatedButton.styleFrom(
+                                textStyle: TextStyle(fontSize: 20),
+                                backgroundColor: const Color.fromARGB(
+                                  255,
+                                  189,
+                                  145,
+                                  157,
+                                ),
+                                foregroundColor: const Color.fromARGB(
+                                  255,
+                                  255,
+                                  255,
+                                  255,
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16,
+                                  horizontal: 24,
+                                ),
+                                elevation: 5,
+                                minimumSize: Size(100, 10),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
 
             Positioned(
-              top: 60,
-              left: 30,
-              child: Image.asset(
-                "assets/images/nutri_Logo.png",
-                width: 150,
-                height: 150,
-                fit: BoxFit.contain,
+              top: 70,
+              left: 25,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    "assets/images/nutri_Logo.png",
+                    width: 130,
+                    height: 130,
+                    fit: BoxFit.fitWidth,
+                  ),
+                  SizedBox(width: 12),
+                  Text('НутриМама', style: TextStyle(
+                    fontWeight: FontWeight.w500, 
+                    fontSize: 40,
+                    color: Color.fromARGB(255, 189, 145, 147) 
+                    )),
+                ],
               ),
             ),
           ],
