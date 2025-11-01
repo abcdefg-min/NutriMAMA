@@ -15,12 +15,6 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   final TextEditingController _weghtController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
 
-  final List<String> _dropDown = [
-    'Грудное вскармливание',
-    'Искуственное вскармливание',
-  ];
-  String _drop = 'Грудное вскармливание';
-
   // bool _showTable = false;
 
   @override
@@ -31,11 +25,11 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   }
 
   void _calculate() {
-    //print('Функция вызвана');
+    print('Функция вызвана');
     final form = _formKey.currentState;
 
     if (form == null || !form.validate()) {
-      //print('Форам не валидна');
+      print('Форам не валидна');
       return;
     }
 
@@ -52,7 +46,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
           body: jsonEncode({'weight_kg': weight, 'age_w': age}),
         )
         .then((response) {
-          //print('Статус ${response.statusCode}');
+          print('Статус ${response.statusCode}');
         });
 
     //табличка
@@ -149,7 +143,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                           ),
                         ),
 
-                        //форма для ввода веса в граммах
+                        //форма для ввода возраста ребенка
                         SizedBox(height: 10),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -184,6 +178,22 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                                     ),
                                   ),
                                 ),
+                                //проверка на введное поле (возраст ребенка)
+                                keyboardType: TextInputType.number,
+                                validator: (value) {
+                                  if (value == null || value.trim().isEmpty) {
+                                    return 'Пожалуйста введите возраст в неделях';
+                                  }
+                                  final trimmed = value.trim();
+                                  final num = int.tryParse(trimmed);
+                                  if (num == null || num <= 0) {
+                                    return 'Введите корректный возраст';
+                                  }
+                                  if (num > 52) {
+                                    return 'Введите возраст до года';
+                                  }
+                                  return null;
+                                },
                               ),
                             ],
                           ),
@@ -223,6 +233,22 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                                     ),
                                   ),
                                 ),
+                                //проверка на введное поле (вес ребенка)
+                                keyboardType: TextInputType.number,
+                                validator: (value) {
+                                  if (value == null || value.trim().isEmpty) {
+                                    return 'Пожалуйста введите вес ребёнка';
+                                  }
+                                  final trimmed = value.trim();
+                                  final num = int.tryParse(trimmed);
+                                  if (num == null || num <= 0) {
+                                    return 'Введите корректный вес ребёнка';
+                                  }
+                                  if (num > 4000) {
+                                    return 'Введите корректный вес ребёнка';
+                                  }
+                                  return null;
+                                },
                               ),
                             ],
                           ),
@@ -287,11 +313,14 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                     fit: BoxFit.fitWidth,
                   ),
                   SizedBox(width: 12),
-                  Text('НутриМама', style: TextStyle(
-                    fontWeight: FontWeight.w500, 
-                    fontSize: 40,
-                    color: Color.fromARGB(255, 189, 145, 147) 
-                    )),
+                  Text(
+                    'НутриМама',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 40,
+                      color: Color.fromARGB(255, 189, 145, 147),
+                    ),
+                  ),
                 ],
               ),
             ),
