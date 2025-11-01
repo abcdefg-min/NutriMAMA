@@ -99,8 +99,9 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                               Text(
                                 'Информация о ребёнке',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 21,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18,
                                   color: const Color.fromARGB(
                                     255,
                                     183,
@@ -113,8 +114,9 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                               Text(
                                 'Имя ребенка (необязательно)',
                                 style: TextStyle(
+                                  fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 18,
+                                  fontSize: 15,
                                   color: Color.fromARGB(255, 80, 37, 22),
                                 ),
                               ),
@@ -123,6 +125,8 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                                 decoration: const InputDecoration(
                                   labelText: "Имя",
                                   labelStyle: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w500,
                                     color: Color.fromARGB(255, 138, 138, 138),
                                     fontSize: 18,
                                   ),
@@ -153,16 +157,23 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                               Text(
                                 'Возраст (в неделях)',
                                 style: TextStyle(
+                                  fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 18,
+                                  fontSize: 15,
                                   color: Color.fromARGB(255, 80, 37, 22),
                                 ),
                               ),
                               Padding(padding: EdgeInsetsGeometry.all(5)),
                               TextFormField(
+                                maxLength: 2,
+                                controller: _ageController,
                                 decoration: const InputDecoration(
-                                  labelText: "0-52 недели",
+                                  hintText: "0-52 недели",
+                                  helperText:
+                                      'Возраст указывается от 0-52 недель',
                                   labelStyle: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w500,
                                     color: Color.fromARGB(255, 138, 138, 138),
                                     fontSize: 18,
                                   ),
@@ -209,15 +220,20 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                               Text(
                                 'Вес ребенка в граммах',
                                 style: TextStyle(
+                                  fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 18,
+                                  fontSize: 15,
                                   color: Color.fromARGB(255, 80, 37, 22),
                                 ),
                               ),
+                              Padding(padding: EdgeInsetsGeometry.all(5)),
                               TextFormField(
+                                controller: _weghtController,
                                 decoration: const InputDecoration(
-                                  labelText: "Например: 3200",
+                                  hintText: "Например: 3200",
                                   labelStyle: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w500,
                                     color: Color.fromARGB(255, 138, 138, 138),
                                     fontSize: 18,
                                   ),
@@ -267,7 +283,11 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                               onPressed: _calculate,
                               child: const Text("Рассчитать план питания"),
                               style: ElevatedButton.styleFrom(
-                                textStyle: TextStyle(fontSize: 20),
+                                textStyle: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.w500,
+                                ),
                                 backgroundColor: const Color.fromARGB(
                                   255,
                                   189,
@@ -282,10 +302,10 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                                 ),
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 16,
-                                  horizontal: 24,
+                                  horizontal: 20,
                                 ),
                                 elevation: 5,
-                                minimumSize: Size(100, 10),
+                                minimumSize: Size(100, 20),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),
@@ -316,8 +336,9 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                   Text(
                     'НутриМама',
                     style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 40,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w700,
+                      fontSize: 35,
                       color: Color.fromARGB(255, 189, 145, 147),
                     ),
                   ),
