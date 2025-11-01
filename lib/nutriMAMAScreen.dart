@@ -12,6 +12,7 @@ class NutriMAMAScreen extends StatefulWidget {
 
 class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _weghtController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
 
@@ -19,6 +20,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _weghtController.dispose();
     _ageController.dispose();
     super.dispose();
@@ -33,6 +35,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
       return;
     }
 
+    String name = _nameController.text;
     double? weight = double.tryParse(_weghtController.text);
     int? age = int.tryParse(_ageController.text);
     // print('Вес: $weight кг, Возраст: $age недель');
@@ -40,7 +43,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
     http
         .post(
           Uri.parse(
-            'https://webhook.site/7b1f253c-cd6e-4f6f-8629-a3816d43562b',
+            'http://45.142.36.86:3000',
           ),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({'weight_kg': weight, 'age_w': age}),
@@ -57,7 +60,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => TableScreen(weight: weight, age: age),
+          builder: (context) => TableScreen(weight: weight, age: age, name: name),
         ),
       );
     } else {
@@ -122,6 +125,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                               ),
                               Padding(padding: EdgeInsetsGeometry.all(5)),
                               TextFormField(
+                                controller: _nameController,
                                 decoration: const InputDecoration(
                                   labelText: "Имя",
                                   labelStyle: TextStyle(
