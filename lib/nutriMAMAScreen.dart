@@ -35,37 +35,76 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
       return;
     }
 
-    String name = _nameController.text;
-    double? weight = double.tryParse(_weghtController.text);
-    int? age = int.tryParse(_ageController.text);
+    String name_w = _nameController.text;
+    double? weight_w = double.tryParse(_weghtController.text);
+    int? age_w = int.tryParse(_ageController.text);
     // print('Вес: $weight кг, Возраст: $age недель');
+    
+    if (weight_w == null || age_w == null) {
+      return;
+    }
+
+    final double weight = weight_w;
+    final int age = age_w;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 20),
+              Text("Рассчитываем план питания.."),
+            ],
+            ),
+        );
+      },
+    );
+
     //делаем POST запрос
     http
         .post(
-          Uri.parse(
-            'http://45.142.36.86:3000',
-          ),
+          Uri.parse('http://45.142.36.86:3000'),
           headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({'weight_kg': weight, 'age_w': age}),
+          body: jsonEncode({'weight': weight_w, 'weeks': age_w}),
         )
         .then((response) {
+          Navigator.pop(context);
           print('Статус ${response.statusCode}');
+
+          if (response.statusCode == 200) {
+            try {
+              final List<dynamic> responseData = jsonDecode(response.body);
+
+              if (responseData is List) {
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(
+                    builder: (context) => TableScreen(
+                      weight: weight, 
+                      age: age, 
+                      name: name_w, 
+                      serverData: responseData,
+                    ),
+                  ),
+                );
+              } 
+            } catch (e) {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Ошибка сети')),
+              );
+              print('Ошибка сети');
+            }
+          }
         });
 
     //табличка
     // setState(() {
     //   _showTable = true;
     // });
-    if (weight != null && age != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => TableScreen(weight: weight, age: age, name: name),
-        ),
-      );
-    } else {
-      return;
-    }
   }
 
   @override

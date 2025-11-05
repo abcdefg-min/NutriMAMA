@@ -4,27 +4,28 @@ class TableScreen extends StatelessWidget {
   final double weight;
   final int age;
   final String name;
+  final List<dynamic> serverData;
 
   const TableScreen({
     super.key,
     required this.weight,
     required this.age,
     required this.name,
+    required this.serverData
   });
 
   List<Map<String, dynamic>> _calculateTable() {
     final int month = age ~/ 4;
     int interval;
     int mealCount;
-    // final List<Map<String, dynamic>> allInTable = [
-    //   {'meal': '1', 'product': 'Грудное молоко', 'time': '6:00', 'volume': 200.0},
-    //   {'meal': '2', 'product': 'Грудное молоко', 'time': '9:00', 'volume': 180.0},
-    //   {'meal': '3', 'product': 'Грудное молоко', 'time': '12:00', 'volume': 220.0},
-    //   {'meal': '4', 'product': 'Грудное молоко', 'time': '15:00', 'volume': 190.0},
-    //   {'meal': '5', 'product': 'Грудное молоко', 'time': '18:00', 'volume': 180.0},
-    //   {'meal': '6', 'product': 'Грудное молоко', 'time': '21:00', 'volume': 210.0},
-    //   {'meal': '7', 'product': 'Грудное молоко', 'time': '24:00', 'volume': 160.0},
-    // ];
+
+    //массив для таблички (на сервере так выглядит)
+    //[{"time":"6:00","type":"Грудное молоко мл.","dose":"110"},
+    //{"time":"9:30","type":"Грудное молоко мл.","dose":"110"},
+    //{"time":"13:00","type":"Грудное молоко мл.","dose":"110"},
+    //{"time":"16:30","type":"Грудное молоко мл.","dose":"110"},
+    //{"time":"20:00","type":"Грудное молоко мл.","dose":"110"},
+    //{"time":"23:30","type":"Грудное молоко мл.","dose":"110"}]
 
     if (month < 2) {
       interval = 3 * 60; //интревал кормления 3 часа
@@ -84,7 +85,7 @@ class TableScreen extends StatelessWidget {
                         top: 15,
                         left: 20,
                         bottom: 20,
-                        right: 120,
+                        right: 100,
                       ),
                       decoration: BoxDecoration(
                         color: Color.fromARGB(188, 183, 141, 158),
@@ -119,7 +120,7 @@ class TableScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(padding: EdgeInsets.all(30)),
+                    Padding(padding: EdgeInsets.all(20)),
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -145,6 +146,7 @@ class TableScreen extends StatelessWidget {
                             );
                           }).toList(),
                         ),
+                        //List<DataColumn> _createColumns() {}
                       ),
                     ),
                   ],
