@@ -14,59 +14,10 @@ class TableScreen extends StatelessWidget {
     required this.serverData
   });
 
-  List<Map<String, dynamic>> _calculateTable() {
-    final int month = age ~/ 4;
-    int interval;
-    int mealCount;
-
-    //массив для таблички (на сервере так выглядит)
-    //[{"time":"6:00","type":"Грудное молоко мл.","dose":"110"},
-    //{"time":"9:30","type":"Грудное молоко мл.","dose":"110"},
-    //{"time":"13:00","type":"Грудное молоко мл.","dose":"110"},
-    //{"time":"16:30","type":"Грудное молоко мл.","dose":"110"},
-    //{"time":"20:00","type":"Грудное молоко мл.","dose":"110"},
-    //{"time":"23:30","type":"Грудное молоко мл.","dose":"110"}]
-
-    if (month < 2) {
-      interval = 3 * 60; //интревал кормления 3 часа
-      mealCount = 7;
-    } else if (month < 4) {
-      interval = 3 * 60 + 30; //интервал кормления 3,5 часа
-      mealCount = 6;
-    } else {
-      interval = 4 * 60; //интервал кормления 4 часа
-      mealCount = 5;
-    }
-
-    final List<Map<String, dynamic>> table = [];
-
-    int startMinut = 6 * 60; //т.е. начинает первое кормление с 6 утра
-    for (int i = 0; i < mealCount; i++) {
-      //теперь нужно разобраться с временем
-      int totalMinut = startMinut + i * interval;
-      totalMinut = totalMinut % (24 * 60);
-
-      int hour = totalMinut ~/ 60; //целая часть это часы
-      int minute = totalMinut % 60; //остаток это минуты
-      String timerSTR =
-          '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
-
-      final volumes = [200.0, 180.0, 220.0, 190.0, 180.0, 210.0, 160.0];
-      double volume = i < volumes.length ? volumes[i] : 200.0;
-
-      table.add({
-        'meal': (i + 1).toString(),
-        'product': 'Грудное молоко',
-        'time': timerSTR, //потом изменить на нужное
-        'volume': volume,
-      });
-    }
-    return table;
-  }
 
   @override
   Widget build(BuildContext context) {
-    final nutriens = _calculateTable();
+    //final nutriens = _calculateTable();
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 246, 238, 230),
       //appBar: AppBar(title: const Text("NutriMAMA")),
@@ -85,7 +36,7 @@ class TableScreen extends StatelessWidget {
                         top: 15,
                         left: 20,
                         bottom: 20,
-                        right: 100,
+                        right: 135,
                       ),
                       decoration: BoxDecoration(
                         color: Color.fromARGB(188, 183, 141, 158),
@@ -135,13 +86,13 @@ class TableScreen extends StatelessWidget {
                             DataColumn(label: Text('Время')),
                             DataColumn(label: Text('Объём (мл)')),
                           ],
-                          rows: nutriens.map((item) {
+                          rows: serverData.map((item) {
                             return DataRow(
                               cells: [
-                                DataCell(Text(item['meal'].toString())),
-                                DataCell(Text(item['product'].toString())),
+                                DataCell(Text((serverData.indexOf(item) + 1).toString())),
+                                DataCell(Text(item['type'].toString())),
                                 DataCell(Text(item['time'].toString())),
-                                DataCell(Text(item['volume'].toString())),
+                                DataCell(Text(item['dose'] as String)),
                               ],
                             );
                           }).toList(),

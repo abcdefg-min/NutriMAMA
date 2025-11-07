@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'tableScreen.dart';
+import 'dart:async';
+import 'dart:io';
 
 class NutriMAMAScreen extends StatefulWidget {
   const NutriMAMAScreen({super.key});
@@ -39,7 +41,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
     double? weight_w = double.tryParse(_weghtController.text);
     int? age_w = int.tryParse(_ageController.text);
     // print('Вес: $weight кг, Возраст: $age недель');
-    
+
     if (weight_w == null || age_w == null) {
       return;
     }
@@ -58,7 +60,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
               SizedBox(width: 20),
               Text("Рассчитываем план питания.."),
             ],
-            ),
+          ),
         );
       },
     );
@@ -67,8 +69,12 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
     http
         .post(
           Uri.parse('http://45.142.36.86:3000'),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({'weight': weight_w, 'weeks': age_w}),
+          //headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          body: {
+            'weight': weight.toString(), 
+            'weeks': age.toString(),
+            'feeding_type': 'breast',
+          },
         )
         .then((response) {
           Navigator.pop(context);
@@ -76,29 +82,52 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
 
           if (response.statusCode == 200) {
             try {
+              print('Ответ сервера: ${response.body}');
               final List<dynamic> responseData = jsonDecode(response.body);
 
               if (responseData is List) {
                 Navigator.push(
-                  context, 
+                  context,
                   MaterialPageRoute(
                     builder: (context) => TableScreen(
-                      weight: weight, 
-                      age: age, 
-                      name: name_w, 
+                      weight: weight,
+                      age: age,
+                      name: name_w,
                       serverData: responseData,
                     ),
                   ),
                 );
-              } 
+              } else {
+                throw Exception('Ожидался массив');
+              }
             } catch (e) {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Ошибка сети')),
-              );
+              //Navigator.pop(context);
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text('Ошибка сети')));
               print('Ошибка сети');
             }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Ошибка сервера ${response.statusCode}')),
+            );
           }
+        })
+        .catchError((error) {
+          Navigator.pop(context);
+          String errorMessage = 'Ошибка сети';
+
+          if (error is SocketException) {
+            errorMessage = 'Нет подключения к интернету';
+          } else if (error is TimeoutException) {
+            errorMessage = 'Сервер не отвечает (таймаут)';
+          }  else {
+            errorMessage = 'Неизвестная ошибка: $error';
+          }
+
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(errorMessage)));
         });
 
     //табличка
