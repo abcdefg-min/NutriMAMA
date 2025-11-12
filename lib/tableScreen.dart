@@ -60,7 +60,7 @@ class TableScreen extends StatelessWidget {
                           ),
                           Padding(padding: EdgeInsets.all(7)),
                           Text(
-                            '$age недель (${age ~/ 4} мес.)   $weight г',
+                            '$age недель (${age ~/ 4} мес.) $weight г',
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.w500,
