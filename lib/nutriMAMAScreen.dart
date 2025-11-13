@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'tableScreen.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'AuthScreen.dart';
 
 class NutriMAMAScreen extends StatefulWidget {
   const NutriMAMAScreen({super.key});
@@ -18,6 +20,14 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   final TextEditingController _weghtController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
 
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  signOut() async {
+    await auth.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const AuthScreen()),
+    );
+  }
   // bool _showTable = false;
 
   @override
@@ -71,7 +81,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
           Uri.parse('http://45.142.36.86:3000'),
           //headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           body: {
-            'weight': weight.toString(), 
+            'weight': weight.toString(),
             'weeks': age.toString(),
             'feeding_type': 'breast',
           },
@@ -121,7 +131,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
             errorMessage = 'Нет подключения к интернету';
           } else if (error is TimeoutException) {
             errorMessage = 'Сервер не отвечает (таймаут)';
-          }  else {
+          } else {
             errorMessage = 'Неизвестная ошибка: $error';
           }
 
@@ -139,13 +149,30 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 246, 238, 230),
+        foregroundColor: Color.fromARGB(255, 189, 145, 147),
+        actions: [
+          SizedBox(
+            
+            width: 80,
+            height: 50,
+            child: IconButton(
+              onPressed: signOut,
+              icon: Image.asset('assets/images/exit.png'),
+              iconSize: 50,
+              tooltip: 'Выйти из аккаунта',
+            ),
+          ),
+        ],
+      ),
       backgroundColor: Color.fromARGB(255, 246, 238, 230),
-      //appBar: AppBar(title: const Text("NutriMAMA")),
+
       body: Container(
         child: Stack(
           children: [
             Positioned.fill(
-              top: 220,
+              top: 170,
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Container(
@@ -345,7 +372,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                         //кнопка рассчитать
                         Padding(
                           padding: EdgeInsetsGeometry.only(
-                            top: 25,
+                            top: 30,
                             left: 5,
                             right: 5,
                           ),
@@ -377,7 +404,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                                   horizontal: 20,
                                 ),
                                 elevation: 5,
-                                minimumSize: Size(100, 20),
+                                minimumSize: Size(100, 10),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),
@@ -393,7 +420,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
             ),
 
             Positioned(
-              top: 70,
+              top: 15,
               left: 25,
               child: Row(
                 mainAxisSize: MainAxisSize.min,

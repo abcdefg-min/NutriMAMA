@@ -45,5 +45,6 @@ flutter:
   assets: 
       - assets/images/nutriMAMA.png
       - assets/images/nutri_Logo.png
+      - assets/images/exit.png
   
 

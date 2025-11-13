@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_nutrimama/nutriMAMAScreen.dart';
-import 'splash.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'firebase_options.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -42,63 +38,123 @@ class _AuthScreenState extends State<AuthScreen> {
       } else if (e.code == 'email-already-in-use') {
         message = 'An account already exists for that email.';
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_isLogin ? 'Login' : 'Sign Up'),
-      ),
-      body: Padding(
+      appBar: AppBar(title: Text(_isLogin ? 'Login' : 'Sign Up')),
+      body: Container(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
             children: [
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  return null;
-                },
+              Padding(
+                padding: EdgeInsetsGeometry.symmetric(horizontal: 2),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: const InputDecoration(
+                        labelText: 'Почта',
+                        labelStyle: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(255, 138, 138, 138),
+                          fontSize: 18,
+                        ),
+                        fillColor: Color.fromARGB(255, 235, 235, 235),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Пожалуйста введите почту';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: const InputDecoration(
+                        labelText: 'Пароль',
+                        labelStyle: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(255, 138, 138, 138),
+                          fontSize: 18,
+                        ),
+                        fillColor: Color.fromARGB(255, 235, 235, 235),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                      ),
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Пожалуйста введите пароль';
+                        }
+                        if (value.length < 6) {
+                          return 'Password must be at least 6 characters';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
               ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  if (value.length < 6) {
-                    return 'Password must be at least 6 characters';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
+
+              const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: _submit,
-                child: Text(_isLogin ? 'Login' : 'Sign Up'),
+                child: Text(_isLogin ? 'Авторизация' : 'Регистрация'),
+                style: ElevatedButton.styleFrom(
+                  textStyle: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w500,
+                  ),
+                  backgroundColor: const Color.fromARGB(255, 189, 145, 157),
+                  foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 50,
+                  ),
+                  //elevation: 5,
+                  minimumSize: Size(100, 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
               ),
+              Padding(padding: EdgeInsetsGeometry.all(2)),
               TextButton(
                 onPressed: () {
                   setState(() {
                     _isLogin = !_isLogin;
                   });
                 },
-                child: Text(_isLogin
-                    ? 'Not registered yet? Sign Up'
-                    : 'Already registered? Login'),
+                child: Text(
+                  _isLogin
+                      ? 'Нет аккаунта? Зарегестрируйтесь'
+                      : 'Есть аккаунт? Войти',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w500,
+                    
+                  ),
+                ),
               ),
             ],
           ),

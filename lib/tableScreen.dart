@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 
+
 class TableScreen extends StatelessWidget {
   final double weight;
   final int age;
@@ -19,13 +20,17 @@ class TableScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     //final nutriens = _calculateTable();
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 246, 238, 230),
+        foregroundColor: Color.fromARGB(255, 189, 145, 147),
+      ),
       backgroundColor: Color.fromARGB(255, 246, 238, 230),
-      //appBar: AppBar(title: const Text("NutriMAMA")),
+      
       body: Container(
         child: Stack(
           children: [
             Positioned.fill(
-              top: 220,
+              top: 170,
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
@@ -106,7 +111,7 @@ class TableScreen extends StatelessWidget {
             ),
 
             Positioned(
-              top: 70,
+              top: 15,
               left: 25,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
