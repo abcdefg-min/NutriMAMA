@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'tableScreen.dart';
+import 'table_screen.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'auth_screen.dart';
 
 class NutriMAMAScreen extends StatefulWidget {
   const NutriMAMAScreen({super.key});
@@ -18,6 +20,16 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   final TextEditingController _weghtController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
 
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  signOut() async {
+    await auth.signOut();
+    if (mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const AuthScreen()),
+      );
+    }
+  }
   // bool _showTable = false;
 
   @override
@@ -29,25 +41,25 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   }
 
   void _calculate() {
-    print('Функция вызвана');
+    //print('Функция вызвана');
     final form = _formKey.currentState;
 
     if (form == null || !form.validate()) {
-      print('Форам не валидна');
+      //print('Форам не валидна');
       return;
     }
 
-    String name_w = _nameController.text;
-    double? weight_w = double.tryParse(_weghtController.text);
-    int? age_w = int.tryParse(_ageController.text);
+    String nameNutri = _nameController.text;
+    double? weightNutri = double.tryParse(_weghtController.text);
+    int? ageNutri = int.tryParse(_ageController.text);
     // print('Вес: $weight кг, Возраст: $age недель');
 
-    if (weight_w == null || age_w == null) {
+    if (weightNutri == null || ageNutri == null) {
       return;
     }
 
-    final double weight = weight_w;
-    final int age = age_w;
+    final double weight = weightNutri;
+    final int age = ageNutri;
 
     showDialog(
       context: context,
@@ -71,41 +83,37 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
           Uri.parse('http://45.142.36.86:3000'),
           //headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           body: {
-            'weight': weight.toString(), 
+            'weight': weight.toString(),
             'weeks': age.toString(),
             'feeding_type': 'breast',
           },
         )
         .then((response) {
           Navigator.pop(context);
-          print('Статус ${response.statusCode}');
+          //print('Статус ${response.statusCode}');
 
           if (response.statusCode == 200) {
             try {
-              print('Ответ сервера: ${response.body}');
+              //print('Ответ сервера: ${response.body}');
               final List<dynamic> responseData = jsonDecode(response.body);
 
-              if (responseData is List) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TableScreen(
-                      weight: weight,
-                      age: age,
-                      name: name_w,
-                      serverData: responseData,
-                    ),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TableScreen(
+                    weight: weight,
+                    age: age,
+                    name: nameNutri,
+                    serverData: responseData,
                   ),
-                );
-              } else {
-                throw Exception('Ожидался массив');
-              }
+                ),
+              );
             } catch (e) {
               //Navigator.pop(context);
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text('Ошибка сети')));
-              print('Ошибка сети');
+              //print('Ошибка сети');
             }
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -121,7 +129,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
             errorMessage = 'Нет подключения к интернету';
           } else if (error is TimeoutException) {
             errorMessage = 'Сервер не отвечает (таймаут)';
-          }  else {
+          } else {
             errorMessage = 'Неизвестная ошибка: $error';
           }
 
@@ -139,13 +147,32 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 246, 238, 230),
+        foregroundColor: Color.fromARGB(255, 189, 145, 147),
+        actions: [
+          Container(
+            width: 95,  
+            height: 40,
+            child: IconButton(
+              onPressed: signOut,
+              icon: Image.asset(
+                'assets/images/logout3.png', 
+              fit: BoxFit.contain,
+              ),
+              tooltip: 'Выйти из аккаунта',
+              padding: EdgeInsets.only(top: 15),
+            ),
+          ),
+        ],
+      ),
       backgroundColor: Color.fromARGB(255, 246, 238, 230),
-      //appBar: AppBar(title: const Text("NutriMAMA")),
-      body: Container(
+
+      body: Center(
         child: Stack(
           children: [
             Positioned.fill(
-              top: 220,
+              top: 170,
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Container(
@@ -345,7 +372,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                         //кнопка рассчитать
                         Padding(
                           padding: EdgeInsetsGeometry.only(
-                            top: 25,
+                            top: 30,
                             left: 5,
                             right: 5,
                           ),
@@ -353,7 +380,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: _calculate,
-                              child: const Text("Рассчитать план питания"),
+                              child: Text("Рассчитать план питания"),
                               style: ElevatedButton.styleFrom(
                                 textStyle: TextStyle(
                                   fontSize: 18,
@@ -373,11 +400,11 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                                   255,
                                 ),
                                 padding: const EdgeInsets.symmetric(
-                                  vertical: 16,
+                                  vertical: 18,
                                   horizontal: 20,
                                 ),
-                                elevation: 5,
-                                minimumSize: Size(100, 20),
+                                //elevation: 5,
+                                minimumSize: Size(100, 10),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),
@@ -393,7 +420,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
             ),
 
             Positioned(
-              top: 70,
+              top: 15,
               left: 25,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -410,7 +437,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w700,
-                      fontSize: 35,
+                      fontSize: 3,
                       color: Color.fromARGB(255, 189, 145, 147),
                     ),
                   ),
