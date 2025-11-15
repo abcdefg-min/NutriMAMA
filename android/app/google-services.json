@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1008278824750",
+    "project_id": "nutrimama-5d667",
+    "storage_bucket": "nutrimama-5d667.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008278824750:android:4fb74f044669ef0db5bcbf",
+        "android_client_info": {
+          "package_name": "com.example.flutter_nutrimama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1008278824750-aivji759mlg143m6vb5enofda6ofheso.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnHuqJ1lOxcOI2OSJ9J710qUfFb7MIX6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1008278824750-aivji759mlg143m6vb5enofda6ofheso.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1008278824750-fjrb87mf85s7lo6hgrulfs72ov3i8srk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterNutrimama"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
