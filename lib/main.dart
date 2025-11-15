@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
-import 'Auth_screen.dart';
+import 'auth_screen.dart';
 import 'splash_screen.dart';
 
 void main() async {

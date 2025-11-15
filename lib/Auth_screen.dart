@@ -38,9 +38,11 @@ class _AuthScreenState extends State<AuthScreen> {
       } else if (e.code == 'email-already-in-use') {
         message = 'An account already exists for that email.';
       }
-      ScaffoldMessenger.of(context,).showSnackBar(
-        SnackBar(content: Text(message))
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(message)));
+      }
     }
   }
 
@@ -152,7 +154,6 @@ class _AuthScreenState extends State<AuthScreen> {
                     fontSize: 14,
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.w500,
-                    
                   ),
                 ),
               ),

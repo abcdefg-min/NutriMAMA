@@ -5,7 +5,7 @@ import 'table_screen.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'Auth_screen.dart';
+import 'auth_screen.dart';
 
 class NutriMAMAScreen extends StatefulWidget {
   const NutriMAMAScreen({super.key});
@@ -165,7 +165,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
       ),
       backgroundColor: Color.fromARGB(255, 246, 238, 230),
 
-      body: Container(
+      body: Center(
         child: Stack(
           children: [
             Positioned.fill(
