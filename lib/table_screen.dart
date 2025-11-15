@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 
-
 class TableScreen extends StatelessWidget {
   final double weight;
   final int age;
@@ -55,7 +54,7 @@ class TableScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Малыш ${name}',
+                            'Малыш $name',
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.w500,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'tableScreen.dart';
+import 'table_screen.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'AuthScreen.dart';
+import 'Auth_screen.dart';
 
 class NutriMAMAScreen extends StatefulWidget {
   const NutriMAMAScreen({super.key});
@@ -23,10 +23,12 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   signOut() async {
     await auth.signOut();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const AuthScreen()),
-    );
+    if (mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const AuthScreen()),
+      );
+    }
   }
   // bool _showTable = false;
 
@@ -39,25 +41,25 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
   }
 
   void _calculate() {
-    print('Функция вызвана');
+    //print('Функция вызвана');
     final form = _formKey.currentState;
 
     if (form == null || !form.validate()) {
-      print('Форам не валидна');
+      //print('Форам не валидна');
       return;
     }
 
-    String name_w = _nameController.text;
-    double? weight_w = double.tryParse(_weghtController.text);
-    int? age_w = int.tryParse(_ageController.text);
+    String nameNutri = _nameController.text;
+    double? weightNutri = double.tryParse(_weghtController.text);
+    int? ageNutri = int.tryParse(_ageController.text);
     // print('Вес: $weight кг, Возраст: $age недель');
 
-    if (weight_w == null || age_w == null) {
+    if (weightNutri == null || ageNutri == null) {
       return;
     }
 
-    final double weight = weight_w;
-    final int age = age_w;
+    final double weight = weightNutri;
+    final int age = ageNutri;
 
     showDialog(
       context: context,
@@ -88,34 +90,30 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
         )
         .then((response) {
           Navigator.pop(context);
-          print('Статус ${response.statusCode}');
+          //print('Статус ${response.statusCode}');
 
           if (response.statusCode == 200) {
             try {
-              print('Ответ сервера: ${response.body}');
+              //print('Ответ сервера: ${response.body}');
               final List<dynamic> responseData = jsonDecode(response.body);
 
-              if (responseData is List) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TableScreen(
-                      weight: weight,
-                      age: age,
-                      name: name_w,
-                      serverData: responseData,
-                    ),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TableScreen(
+                    weight: weight,
+                    age: age,
+                    name: nameNutri,
+                    serverData: responseData,
                   ),
-                );
-              } else {
-                throw Exception('Ожидался массив');
-              }
+                ),
+              );
             } catch (e) {
               //Navigator.pop(context);
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text('Ошибка сети')));
-              print('Ошибка сети');
+              //print('Ошибка сети');
             }
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -154,7 +152,6 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
         foregroundColor: Color.fromARGB(255, 189, 145, 147),
         actions: [
           SizedBox(
-            
             width: 80,
             height: 50,
             child: IconButton(
@@ -380,7 +377,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: _calculate,
-                              child: const Text("Рассчитать план питания"),
+                              child: Text("Рассчитать план питания"),
                               style: ElevatedButton.styleFrom(
                                 textStyle: TextStyle(
                                   fontSize: 18,
