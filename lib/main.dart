@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_nutrimama/nutri_mama_screen.dart';
 import 'firebase_options.dart';
 import 'auth_screen.dart';
 import 'splash_screen.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
-            return const SplashScreen();
+            return const NutriMAMAScreen();
           }
           else {
             return const AuthScreen();

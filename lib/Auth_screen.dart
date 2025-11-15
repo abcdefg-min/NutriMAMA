@@ -49,7 +49,10 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_isLogin ? 'Login' : 'Sign Up')),
+      appBar: AppBar(
+        title: Text(_isLogin ? 'Авторизация' : 'Регистрация'),
+        centerTitle: true,
+      ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -57,7 +60,7 @@ class _AuthScreenState extends State<AuthScreen> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsetsGeometry.symmetric(horizontal: 2),
+                padding: EdgeInsetsGeometry.only(top: 200, left: 10, right: 10),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +110,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           return 'Пожалуйста введите пароль';
                         }
                         if (value.length < 6) {
-                          return 'Password must be at least 6 characters';
+                          return 'Пароль должен состоять минимум из 6 символов';
                         }
                         return null;
                       },
@@ -129,17 +132,17 @@ class _AuthScreenState extends State<AuthScreen> {
                   backgroundColor: const Color.fromARGB(255, 189, 145, 157),
                   foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                   padding: const EdgeInsets.symmetric(
-                    vertical: 16,
-                    horizontal: 50,
+                    vertical: 18,
+                    horizontal: 115,
                   ),
                   //elevation: 5,
-                  minimumSize: Size(100, 10),
+                  minimumSize: Size(100, 20),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsetsGeometry.all(2)),
+              Padding(padding: EdgeInsetsGeometry.all(4)),
               TextButton(
                 onPressed: () {
                   setState(() {

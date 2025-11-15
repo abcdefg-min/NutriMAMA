@@ -151,14 +151,17 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
         backgroundColor: Color.fromARGB(255, 246, 238, 230),
         foregroundColor: Color.fromARGB(255, 189, 145, 147),
         actions: [
-          SizedBox(
-            width: 80,
-            height: 50,
+          Container(
+            width: 95,  
+            height: 40,
             child: IconButton(
               onPressed: signOut,
-              icon: Image.asset('assets/images/exit.png'),
-              iconSize: 50,
+              icon: Image.asset(
+                'assets/images/logout3.png', 
+              fit: BoxFit.contain,
+              ),
               tooltip: 'Выйти из аккаунта',
+              padding: EdgeInsets.only(top: 15),
             ),
           ),
         ],
@@ -397,10 +400,10 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                                   255,
                                 ),
                                 padding: const EdgeInsets.symmetric(
-                                  vertical: 16,
+                                  vertical: 18,
                                   horizontal: 20,
                                 ),
-                                elevation: 5,
+                                //elevation: 5,
                                 minimumSize: Size(100, 10),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
@@ -434,7 +437,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w700,
-                      fontSize: 35,
+                      fontSize: 32,
                       color: Color.fromARGB(255, 189, 145, 147),
                     ),
                   ),
