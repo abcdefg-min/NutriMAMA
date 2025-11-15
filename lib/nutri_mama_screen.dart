@@ -437,7 +437,7 @@ class _NutriMAMAScreenState extends State<NutriMAMAScreen> {
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w700,
-                      fontSize: 32,
+                      fontSize: 35,
                       color: Color.fromARGB(255, 189, 145, 147),
                     ),
                   ),

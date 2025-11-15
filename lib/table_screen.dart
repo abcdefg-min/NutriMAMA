@@ -11,9 +11,8 @@ class TableScreen extends StatelessWidget {
     required this.weight,
     required this.age,
     required this.name,
-    required this.serverData
+    required this.serverData,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class TableScreen extends StatelessWidget {
         foregroundColor: Color.fromARGB(255, 189, 145, 147),
       ),
       backgroundColor: Color.fromARGB(255, 246, 238, 230),
-      
+
       body: Container(
         child: Stack(
           children: [
@@ -40,7 +39,7 @@ class TableScreen extends StatelessWidget {
                         top: 15,
                         left: 20,
                         bottom: 20,
-                        right: 135,
+                        right: 143,
                       ),
                       decoration: BoxDecoration(
                         color: Color.fromARGB(188, 183, 141, 158),
@@ -81,26 +80,80 @@ class TableScreen extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                          columns: const [
-                            DataColumn(label: Text('Приём')),
-                            DataColumn(label: Text('Продукты питания')),
-                            DataColumn(label: Text('Время')),
-                            DataColumn(label: Text('Объём (мл)')),
-                          ],
-                          rows: serverData.map((item) {
-                            return DataRow(
-                              cells: [
-                                DataCell(Text((serverData.indexOf(item) + 1).toString())),
-                                DataCell(Text(item['type'].toString())),
-                                DataCell(Text(item['time'].toString())),
-                                DataCell(Text(item['dose'] as String)),
-                              ],
-                            );
-                          }).toList(),
+                      constraints: BoxConstraints(
+                        minHeight: 380,
+                      ),
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        //trackVisibility: true,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: DataTable(
+                            border: TableBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            columnSpacing: 30,
+
+                            headingTextStyle: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 17,
+                            ),
+                            headingRowColor: MaterialStateProperty.resolveWith(
+                              (states) => Color.fromARGB(255, 189, 145, 147),
+                            ),
+                            columns: const [
+                              DataColumn(label: Text('Приём')),
+                              DataColumn(label: Text('Продукты питания')),
+                              DataColumn(label: Text('Время')),
+                              DataColumn(label: Text('Объём (мл)')),
+                            ],
+                            rows: serverData.map((item) {
+                              return DataRow(
+                                cells: [
+                                  DataCell(
+                                    Text(
+                                      (serverData.indexOf(item) + 1).toString(),
+                                      style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Text(
+                                      item['type'].toString(),
+                                      style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Text(
+                                      item['time'].toString(),
+                                      style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Text(
+                                      item['dose'] as String,
+                                      style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }).toList(),
+                          ),
                         ),
+
                         //List<DataColumn> _createColumns() {}
                       ),
                     ),

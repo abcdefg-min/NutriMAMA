@@ -57,7 +57,7 @@ class _AuthScreenState extends State<AuthScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          child: Column(
+          child: ListView(
             children: [
               Padding(
                 padding: EdgeInsetsGeometry.only(top: 200, left: 10, right: 10),
