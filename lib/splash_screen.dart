@@ -1,7 +1,7 @@
 import "dart:async";
 import "package:loading_animation_widget/loading_animation_widget.dart";
 import "package:flutter/material.dart";
-import 'nutriMAMAScreen.dart';
+import 'nutri_mama_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {
